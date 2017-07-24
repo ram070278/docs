@@ -16,26 +16,54 @@ Installation steps:
 1. Download Raspi image from the official site https://www.raspberrypi.org/downloads/raspbian/
 2. Use win32-disk-imager or Etcher flash the SD Card with Raspbian Jessie
 3. once SD Card flashed , go to the explorer and find the root folder of SD Card.
-4. Create a new file called "wpa_supplicant.conf" for the wifi connection details as below
+4. Create a new file called "wpa_supplicant.conf" for the wifi connection details as below (this file will be used to connect to wifi on first boot)
   
       network={
         ssid="YOUR_WIFI_NETWORK_SSID"
         psk="YOUR_WIFI_PASSWORD_ENCRIPTED"
+        #psk=8ada1f8dbea59704ac379538b4d9191f6a72390581b4cd7a72864cea685b1a7f
       }
       
   to get the encrypted psk for network and password use the below command
   
           $wpa_passphrase YOUR_WIFI_NETWORK_SSID passphrase
+  
+  https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md
 
 5. Create a new file called "ssh" on the root folder without any extension. This will start a ssh session on Raspi boot.
 6. Once above steps completed, safely eject the SDCard and put it in Raspberry Pi Zero W.
 7. Plug the power source and make sure raspi booted and connected to wifi (by sshing to device)
 
 
+After Installation - Config Raspi:
 
-After Installation :
-
+raspi-config is the Raspberry Pi configuration tool, run the following from the command line to view :
+              sudo raspi-config
 Change the default password:
-
+Change User Password           Change password for the default user (pi)
 
 Change the default host name:
+   HOSTNAME   Set the visible name for this Pi on a network.
+
+CHANGING USERNAME:
+To add a new user with the same permissions as the pi user:
+                sudo useradd -m fred -G sudo
+This adds a new user called fred, creates a home folder, and adds the user to the sudo group. You now need to set a password for the new user:
+                sudo passwd fred
+Log out and log back with the new account details. Check your permissions are in place (i.e. you can sudo) by trying the following.
+                sudo visudo
+
+Notes:
+
+WPA_PASSPHRASE
+ wpa_passphrase - Generate a WPA PSK from an ASCII passphrase for a SSID
+
+SYNOPSIS
+       wpa_passphrase [ ssid ] [ passphrase ]
+OVERVIEW
+       wpa_passphrase pre-computes PSK entries for network configuration blocks of a wpa_supplicant.conf file. An ASCII passphrase and SSID are used to generate a 256-bit PSK.
+
+
+More for Documentaion
+https://www.raspberrypi.org/documentation/configuration/
+      
