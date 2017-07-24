@@ -1,0 +1,41 @@
+
+To setup a RasPI zero W with headless , follow the below steps 
+
+Hardware Required:
+1. Raspberry Pi Zero W
+2. Micro SD Card
+3. Windows/Mac machine for the installtion steps
+
+Software:
+1. Raspi OS - RASPBIAN JESSIE LITE or any falovr
+2. win32-disk-imager or Etcher for flashing the SD card with operating system
+3. Notepad or Notepad ++ or any test editor to create initial files 
+
+Installation steps:
+
+1. Download Raspi image from the official site https://www.raspberrypi.org/downloads/raspbian/
+2. Use win32-disk-imager or Etcher flash the SD Card with Raspbian Jessie
+3. once SD Card flashed , go to the explorer and find the root folder of SD Card.
+4. Create a new file called "wpa_supplicant.conf" for the wifi connection details as below
+  
+      network={
+        ssid="YOUR_WIFI_NETWORK_SSID"
+        psk="YOUR_WIFI_PASSWORD_ENCRIPTED"
+      }
+      
+  to get the encrypted psk for network and password use the below command
+  
+          $wpa_passphrase YOUR_WIFI_NETWORK_SSID passphrase
+
+5. Create a new file called "ssh" on the root folder without any extension. This will start a ssh session on Raspi boot.
+6. Once above steps completed, safely eject the SDCard and put it in Raspberry Pi Zero W.
+7. Plug the power source and make sure raspi booted and connected to wifi (by sshing to device)
+
+
+
+After Installation :
+
+Change the default password:
+
+
+Change the default host name:
