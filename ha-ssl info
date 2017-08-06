@@ -1,0 +1,20 @@
+
+
+
+
+
+
+
+
+
+
+
+
+SSL Renew:
+
+validate and get the expiry in days
+  apt-get install ssl-cert-check
+  ssl-cert-check -b -c /etc/letsencrypt/live/YOUR-URL.duckdns.org/cert.pem | awk '{ print $NF }'
+  
+ ./certbot-auto renew --quiet --no-self-upgrade --standalone \
+                     --standalone-supported-challenges http-01
