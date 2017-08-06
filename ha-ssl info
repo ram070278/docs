@@ -1,8 +1,8 @@
 
 
 
-
-
+setup ssl and duckdns
+https://home-assistant.io/blog/2015/12/13/setup-encryption-using-lets-encrypt/
 
 
 
@@ -18,3 +18,16 @@ validate and get the expiry in days
   
  ./certbot-auto renew --quiet --no-self-upgrade --standalone \
                      --standalone-supported-challenges http-01
+
+shell_command: 
+  renew_ssl: ./certbot/certbot-auto renew --quiet --no-self-upgrade --standalone --preferred-challenges http-01
+  
+  Automation...
+
+- alias: 'Auto Renew SSL Cert'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ssl_cert_expiry
+    below: 7
+  action:
+    service: shell_command.renew_ssl
