@@ -1,0 +1,86 @@
+
+Install Homebridge:
+
+pre-req:
+    ssh pi@raspberrypi.local
+    sudo apt-get update
+    sudo apt-get upgrade
+verify git and make are available otherwise run the 'sudo apt-get install git make'
+
+install Node:
+    curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+
+Install Avahi and other Dependencies
+    sudo apt-get install libavahi-compat-libdnssd-dev
+
+
+installation:
+   sudo npm install -g --unsafe-perm homebridge
+   start homebridge as $homebridge 
+   will show no errors with no plugin and no config defined
+
+Install plugins:
+    sudo npm install -g homebridge-homeassistant
+    sudo npm install -g homebridge-harmonyhub [https://www.npmjs.com/package/homebridge-harmonyhub]
+
+
+Configuration:
+     create a config.json file
+     sudo nano ~/.homebridge/config.json and copy below content , [should change based on needs]
+
+config.json
+
+          {
+              "bridge": {
+                  "name": "rAMs Homebridge",
+                  "username": "CC:22:3D:E3:CE:30",
+                  "port": 51926,
+                  "pin": "717-89-465"
+              },
+              "platforms": [
+                            {
+                            "platform": "HomeAssistant",
+                            "name": "HomeAssistant",
+                            "host": "https://192.168.1.3:8123",
+                            "password": "*********",
+                            "supported_types": ["binary_sensor", "climate", "cover", "device_tracker",
+                             "fan", "group", "input_boolean", "light", "lock", "media_player", "remote", "scene", "sensor", "switch"],
+                            "logging": true,
+                            "verify_ssl": false
+                            },
+                            {
+                             "platform": "HarmonyHub",
+                             "name": "Living Room Harmony Hub"
+                            }
+                       ]
+          }
+
+
+Running Homebridge on Bootup:
+
+
+
+Other Plugins
+
+
+
+https://www.npmjs.com/package/homebridge-harmonyhub
+
+Install this plugin using: npm install -g homebridge-harmonyhub
+Update your configuration file. See sample config.json snippet below.
+Configuration
+Configuration sample:
+
+   "platforms": [
+   	{
+   		"platform": "HarmonyHub",
+   		"name": "Harmony Hub"
+   	}
+   ]
+Fields:
+
+"platform": Must always be "HarmonyHub" (required)
+"name": Can be anything (used in logs)
+
+
