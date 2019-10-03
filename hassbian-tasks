@@ -84,3 +84,60 @@ It’s generally recommended that you read the Getting started guide for how to 
 CHANGE LOCALE, TIMEZONE AND KEYBOARD LAYOUT
 
 $ sudo raspi-config
+
+
+
+
+----------------------------
+Upgrade Python
+http://www.nigelhewitt.co.uk/stuff/automation/python.html
+
+Python 3.7 for Home Automation
+I got told to update my Pi3 for HA to continue running.
+I am not sure how typical my system is, I just installed it using the instructions on the HA website and it worked.
+These are my notes for next time:
+
+sudo apt-get install build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev
+
+wget -O /tmp/Python-3.7.3.tar.xz https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz
+
+cd /tmp
+
+tar xf Python-3.7.3.tar.xz
+
+cd Python-3.7.3
+
+./configure
+
+sudo make altinstall
+
+sudo apt -y autoremove
+
+cd
+
+rm -r /tmp/Python-3.7.3
+
+rm /tmp/Python-3.7.3.tar.xz
+
+sudo systemctl stop home-assistant@homeassistant.service
+
+sudo mv /srv/homeassistant /srv/homeassistant_old
+
+sudo mkdir /srv/homeassistant
+
+sudo chown homeassistant:homeassistant -R /srv/homeassistant
+
+cd /srv/homeassistant
+
+/usr/local/bin/python3.7 -m venv .
+
+source bin/activate
+
+pip install wheel homeassistant
+
+** Note I chose to run hass first time to see all the installation messages.**
+
+sudo systemctl start home-assistant@homeassiith Python 3.7.3
+
+----------------------------
+
